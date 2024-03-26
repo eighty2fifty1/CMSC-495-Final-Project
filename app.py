@@ -1,33 +1,35 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, send
-from flask_cors import CORS
-import pymysql
+from models import db, Message  # Import db and Message from models.py
 
 app = Flask(__name__)
-CORS(app)
 app.config['SECRET_KEY'] = 'your_secret_key'
-socketio = SocketIO(app)
 
-db = pymysql.connect(
-    host='localhost',
-    user='root',
-    password='password',
-    database='chat_db',
-    cursorclass=pymysql.cursors.DictCursor
-)
+# SQLite configuration
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chat.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-@socketio.on('message')
-def handle_message(message):
-    print(message)
-    cursor = db.cursor()
-    cursor.execute("INSERT INTO messages (message) VALUES (%s)", (message,))
-    db.commit()
-    cursor.close()
-    send(message, broadcast=True)
+# Bind the instance of SQLAlchemy to your Flask app
+db.init_app(app)
+
+# Initialize SocketIO with CORS allowed
+socketio = SocketIO(app, cors_allowed_origins="*")
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
+@socketio.on('message')
+def handle_message(message):
+    print("Received message: ", message)
+    # Save message using SQLAlchemy ORM
+    new_message = Message(message=message)
+    db.session.add(new_message)
+    db.session.commit()
+    send(message, broadcast=True)
+
 if __name__ == '__main__':
-    socketio.run(app, debug=True, allow_unsafe_werkzeug=True)
+    with app.app_context():
+        db.create_all()  # Create SQLite database and tables before running the app
+    socketio.run(app, debug=True, port=5000)
+
