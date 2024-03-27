@@ -1,91 +1,23 @@
-from flask import Flask, render_template, redirect, url_for, flash, session
-from extensions import db, bcrypt, socketio,send
-from forms import RegistrationForm, LoginForm
-from models import User, Message
-from sqlalchemy.exc import IntegrityError  # Import IntegrityError for database errors
+from flask import Flask, render_template
+from flask_socketio import SocketIO, send
+from models import db, Message, User  # Import db and Message from models.py
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_very_secret_key'
+app.config['SECRET_KEY'] = 'secret_key?'
+
+# SQLite configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chat.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-# Initialize SQLAlchemy, Bcrypt, and SocketIO extensions
+# Bind the instance of SQLAlchemy to your Flask app
 db.init_app(app)
-bcrypt.init_app(app)
-socketio.init_app(app, cors_allowed_origins="*")
 
-@app.route('/', methods=['GET'])
+# Initialize SocketIO with CORS allowed
+socketio = SocketIO(app, cors_allowed_origins="*")
+
+@app.route('/')
 def index():
-    if 'user_id' in session:
-        return redirect(url_for('chat'))
-    return redirect(url_for('login'))
-
-
-"""
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if 'user_id' in session:
-        return redirect(url_for('chat'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        flash('Your account has been created! You are now able to log in', 'success')
-        return redirect(url_for('login'))
-    return render_template('register.html', form=form)
-
-    """
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if 'user_id' in session:
-        return redirect(url_for('chat'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        try:
-            db.session.add(user)
-            db.session.commit()
-            flash('Your account has been created! You are now able to log in', 'success')
-            return redirect(url_for('login'))
-        except IntegrityError:  # Handle database integrity error (e.g., duplicate email)
-            db.session.rollback()  # Rollback transaction
-            flash('Email already exists. Please use a different email.', 'danger')
-    return render_template('register.html', form=form)
-
-
-
-
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if 'user_id' in session:
-        return redirect(url_for('chat'))  # If user is already logged in, redirect to chat page
-
-    form = LoginForm()
-    if form.validate_on_submit():
-        user = User.query.filter_by(email=form.email.data).first()
-        if user and bcrypt.check_password_hash(user.password, form.password.data):
-            session['user_id'] = user.id
-            flash('Login successful!', 'success')
-            return redirect(url_for('chat'))  # Redirect to chat page after successful login
-        else:
-            flash('Login unsuccessful. Please check email and password.', 'danger')
-
-    return render_template('login.html', form=form)
-
-@app.route('/chat')
-def chat():
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
-    return render_template('chat.html')
-
-
+    return render_template('index.html')
 
 @socketio.on('message')
 def handle_message(message):
@@ -96,12 +28,8 @@ def handle_message(message):
     db.session.commit()
     send(message, broadcast=True)
 
-@app.route('/logout')
-def logout():
-    session.pop('user_id', None)
-    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all()
-    socketio.run(app, debug=True)
+        db.create_all()  # Create SQLite database and tables before running the app
+    socketio.run(app, debug=True, port=5000)
