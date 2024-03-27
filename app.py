@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_socketio import SocketIO, send
-from models import db, Message  # Import db and Message from models.py
+from models import db, Message, User  # Import db and Message from models.py
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret_key?'
@@ -27,6 +27,7 @@ def handle_message(message):
     db.session.add(new_message)
     db.session.commit()
     send(message, broadcast=True)
+
 
 if __name__ == '__main__':
     with app.app_context():
