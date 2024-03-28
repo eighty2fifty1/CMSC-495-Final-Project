@@ -1,17 +1,22 @@
 {
+  "username" : "James",
+  "password" : "password",
+  "email" : "huskernavy70@gmail.com",
   "contacts": [
     {
-      "name" : "Jazer",
+      "name": "Jazer",
       "online": true,
       "chatLog": [
         {
           "timestamp": "7/27/1986 1315",
-          "recipient": true,
-          "content": "Hello"
+          "receiver": "James",
+          "sender": "Jazer",
+          "content": "Hello James"
         },
         {
           "timestamp": "7/27/1986 1325",
-          "recipient": false,
+          "receiver": "Jazer",
+          "sender": "James",
           "content": "Hi"
         }
       ]
@@ -22,13 +27,15 @@
       "chatLog": [
         {
           "timestamp": "7/27/1986 1315",
-          "recipient": true,
+          "receiver": "Mike",
+          "sender": "James",
           "content": "How are you?"
         },
         {
           "timestamp": "7/27/1986 1325",
-          "recipient": false,
-          "content": "Hi"
+          "receiver": "James",
+          "sender": "Mike",
+          "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
         }
       ]
     },
@@ -38,12 +45,14 @@
       "chatLog": [
         {
           "timestamp": "7/27/1986 1315",
-          "recipient": true,
+          "receiver": "Goma",
+          "sender": "James",
           "content": "Hello"
         },
         {
           "timestamp": "7/27/1986 1325",
-          "recipient": false,
+          "receiver": "James",
+          "sender": "Goma",
           "content": "Whats up"
         }
       ]
