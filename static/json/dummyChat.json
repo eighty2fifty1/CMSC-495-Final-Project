@@ -1,0 +1,52 @@
+{
+  "contacts": [
+    {
+      "name" : "Jazer",
+      "online": true,
+      "chatLog": [
+        {
+          "timestamp": "7/27/1986 1315",
+          "recipient": true,
+          "content": "Hello"
+        },
+        {
+          "timestamp": "7/27/1986 1325",
+          "recipient": false,
+          "content": "Hi"
+        }
+      ]
+    },
+    {
+      "name": "Mike",
+      "online": false,
+      "chatLog": [
+        {
+          "timestamp": "7/27/1986 1315",
+          "recipient": true,
+          "content": "How are you?"
+        },
+        {
+          "timestamp": "7/27/1986 1325",
+          "recipient": false,
+          "content": "Hi"
+        }
+      ]
+    },
+    {
+      "name": "Goma",
+      "online": true,
+      "chatLog": [
+        {
+          "timestamp": "7/27/1986 1315",
+          "recipient": true,
+          "content": "Hello"
+        },
+        {
+          "timestamp": "7/27/1986 1325",
+          "recipient": false,
+          "content": "Whats up"
+        }
+      ]
+    }
+  ]
+}
