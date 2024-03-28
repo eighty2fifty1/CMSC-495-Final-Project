@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, make_response
-from flask_socketio import SocketIO, send
+from flask_socketio import SocketIO, send, emit
 from flask_cors import CORS
 from models import db, Message, User  # Import db and Message from models.py
 
