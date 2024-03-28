@@ -2,16 +2,19 @@
 <html>
 <title>Chat</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../static/css/style.css">
-<body>
+<link rel="stylesheet" href="../static/css/style2.css">
+<body onload="fetchDummyChat()">
     <!-- Include Socket.IO client-side library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
-<script src="../static/js/index.js"></script>
-<div class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
-  <h5 class="w3-bar-item">Menu</h5>
+<script src="http://localhost:5000/static/js/index.js"></script>
+
+<div id="sidebar" class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
+  <h5 class="w3-bar-item">Contacts</h5>
+ <!--
   <button class="w3-bar-item w3-button tablink" onclick="openChat(event, 'Mike')">Mike</button>
   <button class="w3-bar-item w3-button tablink" onclick="openChat(event, 'Goma')">Goma</button>
   <button class="w3-bar-item w3-button tablink" onclick="openChat(event, 'Jazer')">Jazer</button>
+  -->
 </div>
 
 <div style="margin-left:130px">
