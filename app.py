@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, jsonify, make_response
 from flask_socketio import SocketIO, send
+from flask_cors import CORS
 from models import db, Message, User  # Import db and Message from models.py
 
 app = Flask(__name__)
@@ -14,10 +15,19 @@ db.init_app(app)
 
 # Initialize SocketIO with CORS allowed
 socketio = SocketIO(app, cors_allowed_origins="*")
+CORS(app)
 
 @app.route('/')
 def index():
     return render_template('index.html')
+
+@app.route('/json')
+def get_data():
+    with open('C:/Users/wrest/PycharmProjects/CMSC-495-Final-Project/static/json/dummyChat.json', 'r') as file:
+        json_data = file.read()
+        response = make_response(jsonify(json_data))
+        response.headers['Access-Control-Allow-Origin'] = '*'  # Allow all origins
+    return response
 
 @socketio.on('message')
 def handle_message(message):
