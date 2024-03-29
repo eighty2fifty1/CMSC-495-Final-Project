@@ -15,15 +15,15 @@ socket.on('connect', function () {
 
 socket.on('message', incomingMsg(message));
 
-function incomingMsg(msg){
+function incomingMsg(msg) {
   const msgBox = document.createElement("li");
   msgBox.classList.add("w3-container");
   msgBox.classList.add("msg");
   console.log(msg);
-  msgBox.textContent = msg.timestamp + " " + msg.content;
-  if(msg.sender == userID){
+  msgBox.textContent = convertTimestamp(msg.timestamp) + ": " + msg.content;
+  if (msg.sender == userID) {
     msgBox.classList.add("outgoing");
-  } else{
+  } else {
     msgBox.classList.add("incoming");
   }
   document.getElementById("chat-list").appendChild(msgBox);
@@ -33,7 +33,7 @@ function incomingMsg(msg){
 function initializeContacts() {
 
 }
-
+//creates and sends message JSON to server and displays it
 function sendMessage() {
   console.log('sendMessage called');  // For debugging
   var input = document.getElementById("send-box");
@@ -50,26 +50,48 @@ function sendMessage() {
 
 
 //called when contact button is clicked
-function openChatTab(evt, contact) {  var i, x, tablinks;
+function assignListener(contact) {
+  console.log(contact);
+  return function openChatTab(evt) {
+    var i, x, tablinks;
     x = document.getElementById("chat-list");
     //clear list
-    while(x.firstChild){
+    while (x.firstChild) {
       x.removeChild(x.firstChild);
     }
     tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < x.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" w3-red", ""); 
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
     }
     //code to show chat
     //
-                                    
+    console.log(contact);
     contact.chatLog.forEach(msg => {
       incomingMsg(msg);
-    })                               
+    })
     console.log(contact.name);
     activeContact = contact.name;
     evt.currentTarget.className += " w3-red";
   }
+}
+
+//helper function to convert time stamp
+function convertTimestamp(timestamp) {
+  // Create a new Date object with the epoch time
+  const date = new Date(timestamp);
+
+  // Get the individual components of the date (year, month, day, hour, minute, second)
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1; // Months are zero-indexed, so add 1
+  const day = date.getDate();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
+
+  // Format the date and time as a human-readable string
+  const formattedDateTime = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day} ${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  return formattedDateTime;
+}
 
 /******************************************
  * 
@@ -96,7 +118,9 @@ async function fetchDummyChat() {
         userButton.className += "w3-bar-item";
         userButton.classList.add("w3-button");
         userButton.classList.add("tablink");
-        userButton.addEventListener("click", function () { openChatTab("click", contact); })  //needs work. try reorganizing args or inserting html code directly
+        console.log(userButton.className);
+        userButton.addEventListener("click", assignListener(contact))  //fixed
+        userButton.innerHTML = '<span class="dot"></span>';
         userButton.textContent = contact.name;
         document.getElementById("sidebar").appendChild(userButton);
       })
