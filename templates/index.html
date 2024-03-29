@@ -3,7 +3,7 @@
 <title>Chat</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../static/css/style2.css">
-<body onload="fetchDummyChat()">
+<body class="background" onload="fetchDummyChat()">
     <!-- Include Socket.IO client-side library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
 <script src="../static/js/index.js"></script>
@@ -11,8 +11,7 @@
   <h5 class="w3-bar-item">Contacts</h5>
 </div>
 
-<div style="margin-left:130px">
-  <div class="w3-padding">Chat App</div>
+<div style="margin-left:130px" style="overflow: hidden;">
 
   <div id="chat-box" class="w3-container chat">
     <h2>Chat</h2>
