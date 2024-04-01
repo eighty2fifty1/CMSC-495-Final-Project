@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat App</title>
+    <!-- Include Socket.IO client-side library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
+</head>
+<body>
+    <h1>Echo Team - Chat App</h1>
+    <!-- Buttons for Register, Login, and Logout -->
+    <div>
+        <button onclick="window.location.href='/register'">Register</button>
+        <button onclick="window.location.href='/login'">Login</button>
+        <button onclick="window.location.href='/logout'">Logout</button>
+    </div>
+    <!-- Chat Input -->
+    <input type="text" id="messageInput" placeholder="Type your message here...">
+    <button onclick="sendMessage()">Send</button>
+    <!-- Chat Messages -->
+    <ul id="chat"></ul>
+
+    <script>
+        var socket = io.connect('http://localhost:5000');
+
+        socket.on('connect', function() {
+            console.log('Websocket connected!');
+        });
+
+        socket.on('message', function(msg) {
+            var li = document.createElement("li");
+            li.textContent = msg;
+            document.getElementById("chat").appendChild(li);
+        });
+
+        function sendMessage() {
+            console.log('sendMessage called');  // For debugging
+            var input = document.getElementById("messageInput");
+            var message = input.value;
+            socket.emit('message', message);
+            input.value = '';
+        }
+    </script>
+</body>
+</html>
