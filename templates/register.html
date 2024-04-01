@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 </head>
 <body>
@@ -11,9 +11,18 @@
         <div class="row">
             <div class="col-md-6 mx-auto mt-5">
                 <div class="card card-body">
-                    <h3 class="text-center mb-4">Login</h3>
-                    <form method="POST" action="{{ url_for('login') }}">
+                    <h3 class="text-center mb-4">Sign-up</h3>
+                    <form method="POST" action="{{ url_for('register') }}">
                         {{ form.hidden_tag() }}
+                        <div class="form-group">
+                            {{ form.username.label(class="form-label") }}
+                            {{ form.username(class="form-control", placeholder="Username") }}
+                            {% if form.username.errors %}
+                                {% for error in form.username.errors %}
+                                    <div class="alert alert-danger" role="alert">{{ error }}</div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
                         <div class="form-group">
                             {{ form.email.label(class="form-label") }}
                             {{ form.email(class="form-control", placeholder="Email") }}
@@ -37,8 +46,11 @@
                         </div>
                     </form>
                     <div class="text-center">
-                        Don't have an account? <a href="{{ url_for('register') }}">Register</a>
+                        Already have an account? <a href="{{ url_for('login') }}">Login</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</body>
+</html>
