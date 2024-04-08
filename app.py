@@ -1,8 +1,11 @@
-from flask import Flask, render_template, redirect, url_for, flash, session
+
+from flask import Flask, render_template, redirect, url_for, flash, session, \
+    make_response, jsonify
 from extensions import db, bcrypt, socketio,send
 from forms import RegistrationForm, LoginForm
 from models import User, Message
 from sqlalchemy.exc import IntegrityError  # Import IntegrityError for database errors
+
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_very_secret_key'
@@ -87,6 +90,14 @@ def chat():
 
 
 
+@app.route('/json')
+def get_data():
+    with open('C:/Users/wrest/PycharmProjects/CMSC-495-Final-Project/static/json/dummyChat.json', 'r') as file:
+        json_data = file.read()
+        response = make_response(jsonify(json_data))
+        response.headers['Access-Control-Allow-Origin'] = '*'  # Allow all origins
+    return response
+
 @socketio.on('message')
 def handle_message(message):
     print("Received message: ", message)
@@ -96,10 +107,12 @@ def handle_message(message):
     db.session.commit()
     send(message, broadcast=True)
 
+
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('login'))
+
 
 if __name__ == '__main__':
     with app.app_context():

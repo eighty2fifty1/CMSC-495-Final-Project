@@ -1,38 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Chat App</title>
+<html>
+<title>Chat</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../static/css/style2.css">
+<body class="background" onload="fetchDummyChat()">
     <!-- Include Socket.IO client-side library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js"></script>
-</head>
-<body>
-    <h1>Echo Team - Chat App</h1>
-    <input type="text" id="messageInput" placeholder="Type your message here...">
-    <button onclick="sendMessage()">Send</button>
-    <ul id="chat"></ul>
+<script src="../static/js/index.js"></script>
+<div id="sidebar" class="w3-sidebar w3-bar-block w3-light-grey w3-card" style="width:130px">
+  <h5 class="w3-bar-item">Contacts</h5>
+</div>
 
-    <script>
-        var socket = io.connect('http://localhost:5000');
-;
+<div style="margin-left:130px" style="overflow: hidden;">
 
-        socket.on('connect', function() {
-            console.log('Websocket connected!');
-        });
+  <div id="chat-box" class="w3-container chat">
+    <h2>Chat</h2>
+    <ul id="chat-list"> 
+    </ul>
+  </div>
 
-        socket.on('message', function(msg) {
-            var li = document.createElement("li");
-            li.textContent = msg;
-            document.getElementById("chat").appendChild(li);
-        });
+  <div id="msg-box" class="w3-container msg" style="display:none;">
+    <h2>Paris</h2>
+    <p>Paris is the capital of France.</p> 
+    <p>The Paris area is one of the largest population centers in Europe, with more than 12 million inhabitants.</p>
+  </div>
+  <span class="textarea send-box msg" role="textbox" id="send-box" contenteditable></span>
+  <button onclick="sendMessage()">-></button>
 
-        function sendMessage() {
-            console.log('sendMessage called');  // For debugging
-            var input = document.getElementById("messageInput");
-            var message = input.value;
-            socket.emit('message', message);
-            input.value = '';
-        }
-    </script>
+</div>
+
 </body>
 </html>
