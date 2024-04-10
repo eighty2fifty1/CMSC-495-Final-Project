@@ -14,9 +14,11 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_secret_key')
 
 # Directly set to use PostgreSQL
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://realtimechat_user:4zRounV9wws9nJvfwAZFF6roFVu8IdwS@dpg-cob2hi6n7f5s739bpedg-a.oregon-postgres.render.com/realtimechat'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-#postgres://realtimechat_user:4zRounV9wws9nJvfwAZFF6roFVu8IdwS@dpg-cob2hi6n7f5s739bpedg-a.oregon-postgres.render.com/realtimechat
+
+#Remove after adding environment variable to Render
+#postgresql://realtimechat_user:4zRounV9wws9nJvfwAZFF6roFVu8IdwS@dpg-cob2hi6n7f5s739bpedg-a.oregon-postgres.render.com/realtimechat
 
 
 # Initialize extensions
@@ -80,12 +82,6 @@ def login():
 
     return render_template('login.html', form=form)
 
-
-# @app.route('/chat')
-# def chat():
-#    if 'user_id' not in session:
-#        return redirect(url_for('login'))
-#    return render_template('chat.html')
 
 @app.route('/chat')
 def chat():
