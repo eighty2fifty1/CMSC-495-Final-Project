@@ -1,4 +1,5 @@
 import json
+import os
 
 from flask import Flask, render_template, redirect, url_for, flash, session, \
     make_response, jsonify
@@ -10,11 +11,15 @@ from sqlalchemy.exc import \
 from datetime import datetime
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_very_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///chat.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_secret_key')
 
-# Initialize SQLAlchemy, Bcrypt, and SocketIO extensions
+# Directly set to use PostgreSQL
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://realtimechat_user:4zRounV9wws9nJvfwAZFF6roFVu8IdwS@dpg-cob2hi6n7f5s739bpedg-a.oregon-postgres.render.com/realtimechat'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#postgres://realtimechat_user:4zRounV9wws9nJvfwAZFF6roFVu8IdwS@dpg-cob2hi6n7f5s739bpedg-a.oregon-postgres.render.com/realtimechat
+
+
+# Initialize extensions
 db.init_app(app)
 bcrypt.init_app(app)
 socketio.init_app(app, cors_allowed_origins="*")
@@ -29,23 +34,6 @@ def index():
     return redirect(url_for('login'))
 
 
-"""
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if 'user_id' in session:
-        return redirect(url_for('chat'))
-    form = RegistrationForm()
-    if form.validate_on_submit():
-        hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password)
-        db.session.add(user)
-        db.session.commit()
-        flash('Your account has been created! You are now able to log in', 'success')
-        return redirect(url_for('login'))
-    return render_template('register.html', form=form)
-
-    """
 
 
 @app.route('/register', methods=['GET', 'POST'])
