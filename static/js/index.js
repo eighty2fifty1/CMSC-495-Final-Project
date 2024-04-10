@@ -13,7 +13,7 @@ socket.on('connect', function () {
   console.log('Websocket connected!');
 });
 
-socket.on('message', incomingMsg(message));
+socket.on('message', function(message){ incomingMsg(message)});
 
 function incomingMsg(msg) {
   const msgBox = document.createElement("li");
@@ -37,13 +37,13 @@ function initializeContacts() {
 function sendMessage() {
   console.log('sendMessage called');  // For debugging
   var input = document.getElementById("send-box");
-  messageTemplate.timestamp = Date.now();  //sender, receiver, timestamp, content
+  //messageTemplate.timestamp = Date.now();  //sender, receiver, timestamp, content
   messageTemplate.sender = userID;
   messageTemplate.receiver = activeContact;
   messageTemplate.content = input.innerText;
   var msgJSON = JSON.stringify(messageTemplate);
   console.log(messageTemplate);
-  socket.emit('message', messageTemplate);
+  socket.emit('message', msgJSON);
   input.innerText = '';
   incomingMsg(messageTemplate);
 }
