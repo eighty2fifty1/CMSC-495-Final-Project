@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="3af07378-4de8-40d2-ba3f-c0820c90d858" name="Changes" comment="integrating full app" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="gomamishra12 &lt;164284619+gomamishra12@users.noreply.github.com&gt;" />
+      </list>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="james" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2eFeANb69vWKbf3yUatmoj12SXG" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="3af07378-4de8-40d2-ba3f-c0820c90d858" name="Changes" comment="" />
+      <created>1711504608854</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1711504608854</updated>
+    </task>
+    <task id="LOCAL-00001" summary="more front end work">
+      <created>1711669070178</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1711669070178</updated>
+    </task>
+    <task id="LOCAL-00002" summary="got names to highlight, timestamp set to epoch time">
+      <created>1711691699138</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1711691699138</updated>
+    </task>
+    <task id="LOCAL-00003" summary="pre merge commit">
+      <created>1712608930622</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712608930622</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Register, Login and Logout functionality&#10;&#10;Register, Login and Logout functionality">
+      <created>1712611012586</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1712611012586</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Register, Login and Logout functionality&#10;&#10;Register, Login and Logout functionality">
+      <created>1712611776650</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1712611776650</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Register, Login and Logout functionality&#10;&#10;Register, Login and Logout functionality">
+      <created>1712611839600</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1712611839600</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Reverted changes">
+      <created>1712613665425</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1712613665425</updated>
+    </task>
+    <task id="LOCAL-00008" summary="integrating full app">
+      <created>1712719931737</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1712719931737</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="more front end work" />
+    <MESSAGE value="got names to highlight, timestamp set to epoch time" />
+    <MESSAGE value="pre merge commit" />
+    <MESSAGE value="Register, Login and Logout functionality&#10;&#10;Register, Login and Logout functionality" />
+    <MESSAGE value="Reverted changes" />
+    <MESSAGE value="integrating full app" />
+    <option name="LAST_COMMIT_MESSAGE" value="integrating full app" />
+  </component>
+</project>
