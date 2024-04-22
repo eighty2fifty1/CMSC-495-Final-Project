@@ -13,7 +13,11 @@ socket.on('connect', function () {
   console.log('Websocket connected!');
 });
 
-socket.on('message', function(message){ incomingMsg(message)});
+socket.on('message', function (message) { incomingMsg(message) });
+
+socket.on('contact_status_changed', function (contact_status_changed) {
+  updateContactStatus(contact_status_changed)
+});
 
 function incomingMsg(msg) {
   const msgBox = document.createElement("li");
@@ -61,7 +65,7 @@ function assignListener(contact) {
     }
     tablinks = document.getElementsByClassName("tablink");
     for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+      tablinks[i].className = tablinks[i].className.replace(" highlighted-blue", "");
     }
     //code to show chat
     //
@@ -71,8 +75,28 @@ function assignListener(contact) {
     })
     console.log(contact.name);
     activeContact = contact.name;
-    evt.currentTarget.className += " w3-red";
+    evt.currentTarget.className += " highlighted-blue";
   }
+}
+
+//adds a contact button. runs for each contact in contact list. also should run when a new contact is added
+function setupContact(contact) {
+  const userButton = document.createElement("button");
+
+  const dot = document.createElement('span');
+  dot.className = 'status-circle';
+  dot.style.backgroundColor = contact.online ? 'green' : 'red'; // Set color based on online status
+  dot.style.display = 'inline-block'; // Show the dot
+
+  userButton.className += "w3-bar-item";
+  userButton.classList.add("w3-button");
+  userButton.classList.add("tablink");
+  console.log(userButton.className);
+  userButton.addEventListener("click", assignListener(contact))  //fixed
+  //userButton.innerHTML = '<span class="dot"></span>';
+  userButton.textContent = contact.name;
+  userButton.appendChild(dot);
+  document.getElementById("sidebar").appendChild(userButton);
 }
 
 //helper function to convert time stamp
@@ -114,15 +138,7 @@ async function fetchDummyChat() {
       console.log(users.contacts[0].name);
       tablinks = document.getElementsByClassName("tablink");
       users.contacts.forEach(contact => {
-        const userButton = document.createElement("button");
-        userButton.className += "w3-bar-item";
-        userButton.classList.add("w3-button");
-        userButton.classList.add("tablink");
-        console.log(userButton.className);
-        userButton.addEventListener("click", assignListener(contact))  //fixed
-        userButton.innerHTML = '<span class="dot"></span>';
-        userButton.textContent = contact.name;
-        document.getElementById("sidebar").appendChild(userButton);
+        setupContact(contact);
       })
       // Display the name on the page
     })
