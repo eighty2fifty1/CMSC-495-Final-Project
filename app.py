@@ -13,12 +13,13 @@ from datetime import datetime
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_secret_key')
 
-# Directly set to use PostgreSQL
+# Directly set to use PostgreSQL for render
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-#Remove after adding environment variable to Render
-
+# For running locally
+##app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://realtimechat_user:4zRounV9wws9nJvfwAZFF6roFVu8IdwS@dpg-cob2hi6n7f5s739bpedg-a.oregon-postgres.render.com/realtimechat'
+##app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 
 # Initialize extensions
@@ -34,6 +35,9 @@ def index():
     if 'user_id' in session:
         return redirect(url_for('chat'))
     return redirect(url_for('login'))
+
+
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -80,17 +84,12 @@ def login():
     return render_template('login.html', form=form)
 
 
-# @app.route('/chat')
-# def chat():
-#    if 'user_id' not in session:
-#        return redirect(url_for('login'))
-#    return render_template('chat.html')
-
 @app.route('/chat')
 def chat():
     if 'user_id' not in session:
         return redirect(url_for('login'))
-    return render_template('index.html')
+    user = User.query.get(session['user_id'])  # Retrieve user details from the database
+    return render_template('index.html', user=user)
 
 
 @app.route('/json')
